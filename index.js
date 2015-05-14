@@ -16,11 +16,25 @@ var words = [
 ];
 
 app.get("/", function (req, res) {
+	//render index.html
 	var homePath = path.join(views, "index.html");
 	res.sendFile(homePath);
-	console.log('helloooo');
 });
 
+app.get("/words", function (req, res) {
+	res.send(JSON.stringify(words));
+});
+
+app.post("/words", function (req, res) {
+	var newWord = req.body;
+	newWord.id = words[words.length-1].id+1;
+	word.push(newWord);
+	res.send(newWord);
+})
+
+app.delete("/foods/:id", function (req, res) {
+	console.log("delete route hit")
+})
 
 
 app.listen(3000, function (req, res) {
