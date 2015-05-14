@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Catchphrase.ly</title>
+ <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+  <!-- Underscore -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- Catchphrase.ly -->
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <script src="../js/app.js"></script>
+</head>
+<body>
+	<div id="page-wrapper" class="container">
+    <!-- header -->
+    <header class="page-header">
+      <h1>catchphrase.ly</h1>
+    </header>
+    <!-- all words! -->
+    <ul class="list-group" id="word-ul">
+    </ul>
+  </div>
+</body>
+<!-- Underscore template -->
+  <script type="text/template" id="foods-template">
+    <% _.each(collection, function(item){ %>
+      <li class='list-group-item'><%= item.name %>
+        <span class="label label-default"><%= item.definition%></span>
+      </li>
+    <% }); %>
+  </script>
+</html>
