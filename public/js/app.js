@@ -10,8 +10,12 @@ View.init = function() {
 		event.preventDefault();
 		var wordParams = $(this).serialize(); //formats from data into a query string
 		Word.create(wordParams);
-		});
 	});
+
+	$(".close").on("click", function(){
+		Word.delete(this);
+	})
+
 };
 
 View.render = function(items, parentId, templateId) {
@@ -27,7 +31,7 @@ Word.all = function(){
 	});
 }
 Word.create = function(wordParams) {
-	$.post("/word", woodParams).done(function(res){
+	$.post("/words", wordParams).done(function(res){
 		Word.all();
 	}).done(function(res){
 		$("#word-form")[0].reset();
@@ -40,6 +44,6 @@ Word.delete = function(word) {
 		type: 'DELETE',
 		success: function(res) {
 			Word.all();
-		};
+		}
 	});
 };
