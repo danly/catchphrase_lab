@@ -4,39 +4,53 @@ var bodyParser = require("body-parser");
 var _ = require("underscore");
 
 var app = express();
-var views = path.join(process.cwd(), "public/views");
 
-// serve js & css files into a public folder
+// // serve js & css files into a public folder
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({extended: true}));
 
+//body parser config
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+//pre-seeded words data
 var words = [
 	{id: 0, name: "coercion", definition: "forced compliance"},
 	{id: 1, name: "recursion", definition: "recursion"},
 ];
-
-app.get("/", function (req, res) {
-	//render index.html
-	var homePath = path.join(views, "index.html");
+//root path
+app.get('/', function (req, res) {
+	var homePath = path.join(__dirname + '/public/views/index.html');
 	res.sendFile(homePath);
 });
 
 app.get("/words", function (req, res) {
+	// render foods index as JSON
 	res.send(JSON.stringify(words));
 });
 
 app.post("/words", function (req, res) {
+	// find new word in the req.body
 	var newWord = req.body;
-	newWord.id = words[words.length-1].id+1;
-	word.push(newWord);
-	res.send(newWord);
+	// grab the highest id, increment by 1 and set as the new word's id
+	newWord.id = words[words.length-1].id +1;
+	// add to our food array
+	words.push(newWord);
+	// render the created object as json
+	res.send(JSON.stringify(newWord));
 })
 
-app.delete("/foods/:id", function (req, res) {
-	console.log("delete route hit")
+app.delete("/words", function (req, res){
+	// set the value of the id
+	var targetId = parseInt(req.params.id, 10);
+	// find item in the array matching the id
+	var targetItem = _.findWhere(words, {id: targetId});
+	// get the index of the found item
+	var index = words.indexOf(targetItem);
+	// remove the item at that index, only remove 1 item
+	words.splice(index, 1);
+	res.send(JSON.stringify(targetItem));
 })
 
-
-app.listen(3000, function (req, res) {
-	console.log("working!!");
+app.listen(3000, function () {
+	console.log("listening on port 3000");
 });

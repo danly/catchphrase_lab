@@ -1,40 +1,45 @@
 $(function(){
 	Word.all();
+	View.init();
 })
 
-function View() {};
-View.render = function(items, parentId, templateId) {
-  var template = _.template($("#" + templateId).html());
-  $("#" + parentId).html(template({collection: items}));
-};
 
+function View() {};
 View.init = function() {
-	$("new-word-form").on("submit", function(event){
+	$("#word-form").on("submit", function(event){
 		event.preventDefault();
-		$.post("/words", $(this).serialize()).done(function(res){
-			Word.all();
-			$("new-word-form")[0].reset();
+		var wordParams = $(this).serialize(); //formats from data into a query string
+		Word.create(wordParams);
 		});
 	});
-	//delete feature here
-	$("button").on("click", function(){
-		Word.delete(this);
-	})
 };
 
-
-
+View.render = function(items, parentId, templateId) {
+	var template = _.template($('#' + templateId).html());
+	$('#' + parentId).html(template({collection: items}));
+};
 
 function Word () {};
 Word.all = function(){
 	$.get("/words", function(res){
 		var words = JSON.parse(res);
-		View.render(words, "word-ul", "words-template")
+		View.render(words, "word-ul", "words-template");
+	});
+}
+Word.create = function(wordParams) {
+	$.post("/word", woodParams).done(function(res){
+		Word.all();
 	}).done(function(res){
-		View.init();
+		$("#word-form")[0].reset();
 	});
 };
-
-Word.delete = function(context) {
-	var id = $(context).data("id");
-}
+Word.delete = function(word) {
+	var wordId = $(word).data().id;
+	$.ajax({
+		url: '/words/' + wordId,
+		type: 'DELETE',
+		success: function(res) {
+			Word.all();
+		};
+	});
+};
