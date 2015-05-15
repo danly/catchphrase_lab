@@ -51,6 +51,14 @@ app.delete("/words", function (req, res){
 	res.send(JSON.stringify(targetItem));
 })
 
+// app.delete("/words/:id", function (req, res){
+// 	var targetId = req.params.id;
+// 	var targetItem = _.findWhere(words, {id: targetId})
+// 	var index = words.indexOf(targetItem);
+// 	words.splice(index, 1);
+// 	res.send(JSON.stringify(targetItem));
+// })
+
 app.listen(3000, function () {
 	console.log("listening on port 3000");
 });
