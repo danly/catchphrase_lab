@@ -26,7 +26,8 @@ View.render = function(items, parentId, templateId) {
 function Word () {};
 Word.all = function(){
 	$.get("/words", function(res){
-		var words = JSON.parse(res);
+		// removed JSON.parse() because we removed JSON.stringify on the server side
+		var words = res;
 		View.render(words, "word-ul", "words-template");
 	});
 }
@@ -39,12 +40,10 @@ Word.create = function(wordParams) {
 };
 Word.delete = function(word) {
 
-
-	var wordId = $(word).data().id;
+	var wordId = $(word).data("_id"); //unique mongoose _id
 	console.log(wordId, "wordId")
 
 	$.ajax({ 								//READ DOCS FOR THIS
-		// url: '/words?id=' + wordId,
 		url: '/words/' + wordId,
 		type: 'DELETE',
 		success: function(res) {

@@ -22,8 +22,8 @@
     </header>
     <!-- form -->
     <form class="form-horizontal" id="word-form">
-        <input name="name" type="text" class="form-control" id="new-word" placeholder="New Word">
-        <input name="definition" type="text" class="form-control" placeholder="Definition">
+        <input name="word[name]" type="text" class="form-control" id="new-word" placeholder="New Word">
+        <input name="word[definition]" type="text" class="form-control" placeholder="Definition">
         <button type="submit" class="btn btn-default" id="word-form">Add Word</button>
     </form>
     <!-- all words! -->
@@ -34,9 +34,10 @@
 <!-- Underscore template -->
   <script type="text/template" id="words-template">
     <% _.each(collection, function(item){ %>
-      <li class='list-group-item'><%= item.name %>(<%= item.id %>)
+      <li class='list-group-item' title="<%= item._id %>">
+        <%= item.name %>
         <span class="label label-default"><%= item.definition %></span>
-        <button data-id="<%= item.id %>" onclick="Word.delete(this)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button data-_id="<%= item._id %>" onclick="Word.delete(this)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </li>
     <% }); %>
   </script>

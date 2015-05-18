@@ -21,3 +21,4 @@ var catchPhraseSchema = new Schema({
 var Word = mongoose.model('Word', catchPhraseSchema);
 
 module.exports.Word = Word;
+
