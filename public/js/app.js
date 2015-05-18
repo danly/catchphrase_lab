@@ -38,10 +38,14 @@ Word.create = function(wordParams) {
 	});
 };
 Word.delete = function(word) {
+
+
 	var wordId = $(word).data().id;
+	console.log(wordId, "wordId")
+
 	$.ajax({ 								//READ DOCS FOR THIS
-		url: '/words?id=' + wordId,
-		// url: '/words/' + wordId,
+		// url: '/words?id=' + wordId,
+		url: '/words/' + wordId,
 		type: 'DELETE',
 		success: function(res) {
 			Word.all();
